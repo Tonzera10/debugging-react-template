@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import "./App.css";
-import Post from "./componetns/Post";
+import {Post} from "./components/Post/Post";
 
 //!! Os trechos comentados fazem parte do exercício final !!
 // !!!!! não descomentar ou modificar até lá !!!!!
@@ -8,7 +7,8 @@ import Post from "./componetns/Post";
 export default function App() {
   const [textoNovoPost, setTextoNovoPost] = useState("")
   const [post, setPost] = useState({})
-  // const [comentario, setComentario] = useState("")
+  const [comentario, setComentario] = useState("")
+  const [novoComentario, setNovoComentario] = useState("");
 
   const onChangeTextoNovoPost = (event) => {
     setTextoNovoPost(event.target.value);
@@ -23,34 +23,36 @@ export default function App() {
     }
 
     setPost(novoPost)
+    setTextoNovoPost("")
   }
 
   const apagarPost = () => {
     // Apaga o post enviado
-    setPost()
+    setPost({})
   }
 
   const alterarCurtida = () => {
     // Altera o status de curtida do post
     const alterarCurtida = {
       ...post,
-      curtido: post.curtido
+      curtido: !post.curtido
     }
     setPost(alterarCurtida)
   }
 
   // Exercício final de debug. Descomentar só depois de finalizar o debug de post
-  /* function adicionaComentario() {
-    const addComentario ={
-     comentario: comentario
-    }
-    setComentario(addComentario)
-   }
+  function adicionaComentario() {
+    const addComentario = comentario;
+    setNovoComentario(addComentario);
+    setComentario("");
+  }
+    
+   
 
    const onChangeComentario = (e) => {
-     setComentario({e.target.valeu})
+     setComentario(e.target.value)
    }
-*/
+
 
   return (
     <div className="App">
@@ -67,8 +69,10 @@ export default function App() {
         post={post}
         alteraCurtida={alterarCurtida}
         apagarPost={apagarPost}
-        // onChangeComentarios={onChangeComentario}
-        // adicionaComentarios={adicionaComentario}
+        onChangeComentario={onChangeComentario}
+        adicionaComentario={adicionaComentario}
+        comentario={comentario}
+        novoComentario={novoComentario}
       />
     </div>
   );
